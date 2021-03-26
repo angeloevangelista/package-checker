@@ -5,14 +5,25 @@ import { FiArrowLeft } from 'react-icons/fi'
 import { Container, ReturnContainer } from './styles'
 
 interface INavBarProps {
-  returnTo: string;
+  returnTo?: string;
 }
 
-const NavBar: React.FC<INavBarProps> = ({ returnTo }) => {
+/**
+ * NavBar
+ * @param returnTo A route path witch return button will navigate to
+ * @param children Children content, when given will be used as right content of NavBar
+ * @returns ReactNode
+ */
+const NavBar: React.FC<INavBarProps> = ({ returnTo, children }) => {
   const history = useHistory()
 
   const handleGoBack = useCallback(() => {
-    history.push(returnTo)
+    if (returnTo) {
+      history.push(returnTo)
+      return
+    }
+
+    history.goBack()
   }, [])
 
   return (
@@ -22,6 +33,8 @@ const NavBar: React.FC<INavBarProps> = ({ returnTo }) => {
 
         <strong>Voltar</strong>
       </ReturnContainer>
+
+      {children}
     </Container>
   )
 }

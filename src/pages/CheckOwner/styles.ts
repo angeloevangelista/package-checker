@@ -2,6 +2,27 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    padding: 8px;
+
+    text-decoration: none;
+    color: inherit;
+
+    border-radius: 24px;
+    transition: background-color 0.25s ease;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
 `
 
 export const MainContent = styled.main`

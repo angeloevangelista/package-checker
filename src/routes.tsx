@@ -1,14 +1,19 @@
 import React from 'react'
 import { HashRouter, Route } from 'react-router-dom'
 
-import Home from './pages/Home'
-import CheckOwner from './pages/CheckOwner'
+import { routesMap } from './config/routes-map'
 
 const Routes: React.FC = () => {
   return (
     <HashRouter>
-      <Route exact path="/" component={Home} />
-      <Route path="/check-owner" component={CheckOwner} />
+      {Object.entries(routesMap).map(([routeKey, routeMap]) => (
+        <Route
+          key={routeKey}
+          path={routeMap.path}
+          exact={routeMap.exact}
+          component={routeMap.component}
+        />
+      ))}
     </HashRouter>
   )
 }

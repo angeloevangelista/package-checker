@@ -8,7 +8,7 @@ const fixFiles = async (
   termToFind: string,
   termToSubstitute: string
 ): Promise<void> => {
-  const promisedLoops = filesToFix.map(async (file) => {
+  const promisedLoops = filesToFix.map(async (file: IFile) => {
     const fileContent = await file.text()
 
     const regexToBeSubstituted = new RegExp(termToFind, 'i')

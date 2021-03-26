@@ -4,9 +4,12 @@ import {
   MdRefresh,
   BiError,
   BiCheckDouble,
-  AiOutlineTool
+  AiOutlineTool,
+  FiSettings
 } from 'react-icons/all'
 import React, { useCallback, useRef, useState } from 'react'
+
+import { routesMap } from '../../config/routes-map'
 
 import Button from '../../components/Button'
 import NavBar from '../../components/NavBar'
@@ -18,6 +21,7 @@ import fixFiles from './functions/fixFiles'
 import checkFiles from './functions/checkFiles'
 
 import { Container, MainContent, FileList, FlexContainer } from './styles'
+import { Link } from 'react-router-dom'
 
 const GLOBAL_TERM = 'HUEEEE'
 const GLOBAL_SUBSTITUTE_TERM = 'TERM_01'
@@ -58,7 +62,11 @@ const CheckOwner: React.FC = () => {
 
   return (
     <Container>
-      <NavBar returnTo="/" />
+      <NavBar>
+        <Link to={routesMap.Settings.path}>
+          <FiSettings size={24} />
+        </Link>
+      </NavBar>
 
       <MainContent>
         <FlexContainer>
