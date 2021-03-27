@@ -3,9 +3,9 @@ import path from 'path'
 const homePath = process.env.HOMEPATH || process.env.HOME || ''
 
 const storageConfig = {
-  storagePath: path.join(homePath, 'package_checker'),
+  storagePath: path.join(homePath, '.package_checker'),
   settings: {
-    fileName: 'package_checker_settings.json',
+    fileName: 'settings.json',
     version: 1.0
   }
 }
