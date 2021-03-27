@@ -2,7 +2,7 @@ import { useHistory } from 'react-router'
 import React, { useCallback } from 'react'
 import { FiArrowLeft } from 'react-icons/fi'
 
-import { Container, ReturnContainer } from './styles'
+import * as SC from './styles'
 
 interface INavBarProps {
   returnTo?: string;
@@ -27,15 +27,15 @@ const NavBar: React.FC<INavBarProps> = ({ returnTo, children }) => {
   }, [])
 
   return (
-    <Container>
-      <ReturnContainer onClick={handleGoBack}>
+    <SC.Container>
+      <SC.ReturnContainer onClick={handleGoBack}>
         <FiArrowLeft size={24} />
 
         <strong>Voltar</strong>
-      </ReturnContainer>
+      </SC.ReturnContainer>
 
       {children}
-    </Container>
+    </SC.Container>
   )
 }
 

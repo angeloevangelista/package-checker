@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconType } from 'react-icons'
 
-import { Container } from './styles'
+import * as SC from './styles'
 
 interface IButtonProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
   icon?: IconType;
@@ -15,11 +15,11 @@ const Button: React.FC<IButtonProps> = ({
   ...rest
 }) => {
   return (
-    <Container color={color} {...rest}>
+    <SC.Container color={color} {...rest}>
       {Icon && <Icon size={24} />}
 
       {children}
-    </Container>
+    </SC.Container>
   )
 }
 

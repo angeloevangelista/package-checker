@@ -2,7 +2,7 @@ import crypto from 'crypto'
 import React, { useCallback } from 'react'
 import { GoFile, GoFileDirectory } from 'react-icons/go'
 
-import { Container, FileSelector } from './styles'
+import * as SC from './styles'
 
 interface IFileInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -39,14 +39,14 @@ const FileInput: TFileInputType = React.forwardRef(function FileInput (
   }, [])
 
   return (
-    <Container>
-      <FileSelector htmlFor={internalReferenceID}>
+    <SC.Container>
+      <SC.FileSelector htmlFor={internalReferenceID}>
         {type === 'file' ? <GoFile size={24} /> : <GoFileDirectory size={24} />}
 
         <strong>
           {type === 'file' ? 'Selecionar arquivo' : 'Selecionar diretório'}
         </strong>
-      </FileSelector>
+      </SC.FileSelector>
 
       {/* <InputDetails>
         <div>
@@ -62,7 +62,7 @@ const FileInput: TFileInputType = React.forwardRef(function FileInput (
         {...getInputTypeProps()}
         {...rest}
       />
-    </Container>
+    </SC.Container>
   )
 })
 

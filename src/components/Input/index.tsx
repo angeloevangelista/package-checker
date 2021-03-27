@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconType } from 'react-icons/lib'
 
-import { Container, InputElement } from './styles'
+import * as SC from './styles'
 
 interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: IconType;
@@ -16,10 +16,10 @@ const Input: InputType = React.forwardRef(function Input (
   forwardRef
 ) {
   return (
-    <Container>
+    <SC.Container>
       {Icon && <Icon size={24} />}
-      <InputElement ref={forwardRef} {...rest} />
-    </Container>
+      <SC.InputElement ref={forwardRef} {...rest} />
+    </SC.Container>
   )
 })
 
