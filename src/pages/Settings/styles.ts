@@ -42,7 +42,7 @@ export const SettingsGroup = styled.fieldset`
 
   > .header {
     padding: 0 4px;
-    
+
     background-color: #f2f2f2;
     position: absolute;
 
@@ -64,4 +64,12 @@ export const TermSwitchContainer = styled.div`
   svg {
     margin: 0 20px;
   }
+`
+
+export const Footer = styled.footer`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding: 0 10px;
 `

@@ -6,16 +6,16 @@ import getSalutation from '../../utils/getSalutation'
 
 import Card from '../../components/Card'
 
-import { Container, Title, CardsContainer } from './styles'
+import * as SC from './styles'
 
 const Home: React.FC = () => {
   const salutation = getSalutation()
 
   return (
-    <Container>
-      <Title>{salutation}</Title>
+    <SC.Container>
+      <SC.Title>{salutation}</SC.Title>
 
-      <CardsContainer>
+      <SC.CardsContainer>
         <Card
           navigateTo={routesMap.CheckOwner.path}
           icon={AiOutlineDiff}
@@ -27,8 +27,8 @@ const Home: React.FC = () => {
           icon={AiFillBug}
           title="No more bugs"
         />
-      </CardsContainer>
-    </Container>
+      </SC.CardsContainer>
+    </SC.Container>
   )
 }
 

@@ -2,15 +2,19 @@ import IFile from '../interfaces/IFile'
 
 const checkFiles = async (
   filesToCheck: IFile[],
-  termToFind: string
+  termsToFind: string[]
 ): Promise<IFile[]> => {
   const checkedFiles: IFile[] = []
+  termsToFind = termsToFind.filter((term) => !!term.trim())
 
   const promisedLoops = filesToCheck.map(async (file) => {
     const fileContent = await file.text()
-    const regexToTest = new RegExp(termToFind, 'i')
 
-    const fileContainsTerm = fileContent.match(regexToTest)
+    const fileContainsTerm = termsToFind.some((term) => {
+      const regexToTest = new RegExp(term, 'i')
+
+      return fileContent.match(regexToTest)
+    })
 
     file.isOk = !fileContainsTerm
 

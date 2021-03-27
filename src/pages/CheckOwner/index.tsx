@@ -1,3 +1,5 @@
+import React, { useCallback, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { shell } from 'electron'
 import {
   DiCodeBadge,
@@ -7,7 +9,8 @@ import {
   AiOutlineTool,
   FiSettings
 } from 'react-icons/all'
-import React, { useCallback, useRef, useState } from 'react'
+
+import { useSettings } from '../../hooks/settings'
 
 import { routesMap } from '../../config/routes-map'
 
@@ -20,13 +23,10 @@ import IFile from './interfaces/IFile'
 import fixFiles from './functions/fixFiles'
 import checkFiles from './functions/checkFiles'
 
-import { Container, MainContent, FileList, FlexContainer } from './styles'
-import { Link } from 'react-router-dom'
-
-const GLOBAL_TERM = 'HUEEEE'
-const GLOBAL_SUBSTITUTE_TERM = 'TERM_01'
+import * as SC from './styles'
 
 const CheckOwner: React.FC = () => {
+  const { switchTermPairs } = useSettings()
   const [files, setFiles] = useState<IFile[]>([])
   const inputDirectoryRef = useRef<HTMLInputElement>(null)
 
@@ -37,16 +37,14 @@ const CheckOwner: React.FC = () => {
   const handleFixFiles = useCallback(() => {
     const filesToFix = files.filter((file) => !file.isOk)
 
-    fixFiles(filesToFix, GLOBAL_TERM, GLOBAL_SUBSTITUTE_TERM).then(
-      handleRecheck
-    )
-  }, [files])
+    fixFiles(filesToFix, switchTermPairs).then(handleRecheck)
+  }, [files, switchTermPairs])
 
   const handleRecheck = useCallback(() => {
-    checkFiles(files, GLOBAL_TERM).then((checkedFiles) =>
-      setFiles(checkedFiles)
-    )
-  }, [files])
+    const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)
+
+    checkFiles(files, terms).then((checkedFiles) => setFiles(checkedFiles))
+  }, [files, switchTermPairs])
 
   const handleDirectoryChange = useCallback(() => {
     if (!inputDirectoryRef.current) return
@@ -55,21 +53,23 @@ const CheckOwner: React.FC = () => {
       inputDirectoryRef.current.files || []
     ) as IFile[]
 
-    checkFiles(directoryFiles, GLOBAL_TERM).then((checkedFiles) =>
+    const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)
+
+    checkFiles(directoryFiles, terms).then((checkedFiles) =>
       setFiles(checkedFiles)
     )
-  }, [inputDirectoryRef])
+  }, [inputDirectoryRef, switchTermPairs])
 
   return (
-    <Container>
+    <SC.Container>
       <NavBar>
         <Link to={routesMap.Settings.path}>
           <FiSettings size={24} />
         </Link>
       </NavBar>
 
-      <MainContent>
-        <FlexContainer>
+      <SC.MainContent>
+        <SC.FlexContainer>
           <FileInput
             type="directory"
             name="input-directory"
@@ -82,9 +82,9 @@ const CheckOwner: React.FC = () => {
               Checar novamente
             </Button>
           )}
-        </FlexContainer>
+        </SC.FlexContainer>
 
-        <FileList>
+        <SC.FileList>
           <thead>
             <tr>
               <th>Nome</th>
@@ -113,15 +113,15 @@ const CheckOwner: React.FC = () => {
               </tr>
             ))}
           </tbody>
-        </FileList>
+        </SC.FileList>
 
         {!!files.some((file) => !file.isOk) && (
           <Button color="#5beb5b" icon={AiOutlineTool} onClick={handleFixFiles}>
             Corrigir todos
           </Button>
         )}
-      </MainContent>
-    </Container>
+      </SC.MainContent>
+    </SC.Container>
   )
 }
 
