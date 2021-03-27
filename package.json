@@ -74,11 +74,13 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
+    "polished": "^4.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "uuidv4": "^6.2.7"
   },
   "build": {
     "appId": "your.id",
