@@ -25,7 +25,7 @@ import checkFiles from './functions/CheckFiles'
 import * as SC from './styles'
 
 const CheckOwner: React.FC = () => {
-  const { switchTermPairs, defaultOwner } = useSettings()
+  const { switchTermPairs, defaultOwner, packagePrefix } = useSettings()
   const [files, setFiles] = useState<IFile[]>([])
   const inputDirectoryRef = useRef<HTMLInputElement>(null)
 
@@ -36,14 +36,18 @@ const CheckOwner: React.FC = () => {
   const handleFixFiles = useCallback(() => {
     const filesToFix = files.filter((file) => !file.isOk)
 
-    fixFiles(filesToFix, defaultOwner, switchTermPairs).then(handleRecheck)
-  }, [files, switchTermPairs, defaultOwner])
+    fixFiles(filesToFix, defaultOwner, packagePrefix, switchTermPairs).then(
+      handleRecheck
+    )
+  }, [files, switchTermPairs, defaultOwner, packagePrefix])
 
   const handleRecheck = useCallback(() => {
     const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)
 
-    checkFiles(files, terms).then((checkedFiles) => setFiles(checkedFiles))
-  }, [files, switchTermPairs])
+    checkFiles(files, terms, packagePrefix).then((checkedFiles) =>
+      setFiles(checkedFiles)
+    )
+  }, [files, switchTermPairs, packagePrefix])
 
   const handleDirectoryChange = useCallback(() => {
     if (!inputDirectoryRef.current) return
@@ -54,10 +58,10 @@ const CheckOwner: React.FC = () => {
 
     const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)
 
-    checkFiles(directoryFiles, terms).then((checkedFiles) =>
+    checkFiles(directoryFiles, terms, packagePrefix).then((checkedFiles) =>
       setFiles(checkedFiles)
     )
-  }, [inputDirectoryRef, switchTermPairs])
+  }, [inputDirectoryRef, switchTermPairs, packagePrefix])
 
   return (
     <SC.Container>

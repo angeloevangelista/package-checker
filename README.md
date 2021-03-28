@@ -42,7 +42,7 @@ npm run package
 
 ## Todo
 
-- [ ] Validar se tem Owner antes do nome da package (header e body)
+- [x] Validar se tem Owner antes do nome da package (header e body)
 - [ ] Se tem as aspas no owner e nome da package
 - [ ] Validar se os owner estão corretos
 - [ ] Se ta fechando a package correta (a mesma que abriu em cima)

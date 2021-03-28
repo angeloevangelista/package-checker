@@ -13,6 +13,7 @@ class SettingsStorageService {
   constructor () {
     this._initialSettings = {
       defaultOwner: '',
+      packagePrefix: '',
       switchTermPairs: [new SwitchTermPair()],
       settingsVersion: storageConfig.settings.version
     }

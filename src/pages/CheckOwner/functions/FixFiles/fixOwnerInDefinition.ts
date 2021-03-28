@@ -8,10 +8,12 @@ import { SwitchTermPair } from '../../../Settings/entities/SwitchTermPair'
  *
  * @param files The files you want to fix
  * @param defaultOwner The default owner to use if its not provided in file
+ * @param packagePrefix The prefix used for every Package
  */
 export function fixOwnerInDefinition (
   files: IFile[],
-  defaultOwner: string
+  defaultOwner: string,
+  packagePrefix: string
 ): void {
   files.forEach((file) => {
     const fixedDefinitionTerms: SwitchTermPair[] = []
@@ -23,7 +25,7 @@ export function fixOwnerInDefinition (
     )
 
     definitionLines.forEach((definitionLine) => {
-      const packageNameBeginIndex = definitionLine.indexOf('PG_')
+      const packageNameBeginIndex = definitionLine.indexOf(packagePrefix)
 
       const definitionHasOwner = definitionLine
         .slice(packageNameBeginIndex - 2, packageNameBeginIndex)

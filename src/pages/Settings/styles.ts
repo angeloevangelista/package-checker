@@ -28,7 +28,7 @@ export const Title = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  margin: 10px 0;
+  margin: 20px 0;
 `
 
 export const SettingsGroup = styled.fieldset`

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { AiOutlineCrown } from 'react-icons/ai'
+import { BsBookmarkCheck } from 'react-icons/bs'
 import { MdCompareArrows } from 'react-icons/md'
 
 import { useSettings } from '../../hooks/settings'
@@ -18,10 +19,12 @@ import * as SC from './styles'
 const Settings: React.FC = () => {
   const {
     defaultOwner,
+    packagePrefix,
     switchTermPairs,
     saveSettings,
     updateTermPairs,
-    updateDefaultOwner
+    updateDefaultOwner,
+    updatePackagePrefix
   } = useSettings()
 
   const handleTermInputBlur = useCallback(
@@ -61,6 +64,17 @@ const Settings: React.FC = () => {
             icon={AiOutlineCrown}
             placeholder="Owner padrão"
             onChange={(event) => updateDefaultOwner(event.target.value)}
+          />
+        </SC.SettingsGroup>
+
+        <SC.SettingsGroup>
+          <strong className="header">Prefixo de Packages</strong>
+
+          <Input
+            value={packagePrefix}
+            icon={BsBookmarkCheck}
+            placeholder="Prefixo de package"
+            onChange={(event) => updatePackagePrefix(event.target.value)}
           />
         </SC.SettingsGroup>
 
