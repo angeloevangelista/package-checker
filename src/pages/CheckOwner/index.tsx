@@ -20,12 +20,12 @@ import FileInput from '../../components/FileInput'
 import IFile from './interfaces/IFile'
 
 import { fixFiles } from './functions/FixFiles'
-import checkFiles from './functions/checkFiles'
+import checkFiles from './functions/CheckFiles'
 
 import * as SC from './styles'
 
 const CheckOwner: React.FC = () => {
-  const { switchTermPairs } = useSettings()
+  const { switchTermPairs, defaultOwner } = useSettings()
   const [files, setFiles] = useState<IFile[]>([])
   const inputDirectoryRef = useRef<HTMLInputElement>(null)
 
@@ -36,8 +36,8 @@ const CheckOwner: React.FC = () => {
   const handleFixFiles = useCallback(() => {
     const filesToFix = files.filter((file) => !file.isOk)
 
-    fixFiles(filesToFix, switchTermPairs).then(handleRecheck)
-  }, [files, switchTermPairs])
+    fixFiles(filesToFix, defaultOwner, switchTermPairs).then(handleRecheck)
+  }, [files, switchTermPairs, defaultOwner])
 
   const handleRecheck = useCallback(() => {
     const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)

@@ -15,6 +15,7 @@ interface ISettingContext extends ISettings {
   refreshSettings: VoidFunction;
   saveSettings: VoidFunction;
   updateTermPairs: (termPairs: SwitchTermPair[]) => void;
+  updateDefaultOwner: (owner: string) => void;
 }
 
 const settingsStorageService = new SettingsStorageService()
@@ -24,6 +25,7 @@ const SettingsContext = createContext<ISettingContext>({} as ISettingContext)
 const SettingsProvider: React.FC = ({ children }) => {
   const [settings, setSettings] = useState<ISettings>({} as ISettings)
   const [termPairs, setTermPairs] = useState<SwitchTermPair[]>([])
+  const [defaultOwner, setDefaultOwner] = useState<string>('')
 
   const updateTermPairs = useCallback(
     (newTermPairs: SwitchTermPair[]) => {
@@ -37,10 +39,23 @@ const SettingsProvider: React.FC = ({ children }) => {
     [settings]
   )
 
+  const updateDefaultOwner = useCallback(
+    (owner) => {
+      setSettings({
+        ...settings,
+        defaultOwner: owner
+      })
+
+      setDefaultOwner(owner)
+    },
+    [settings]
+  )
+
   const refreshSettings = useCallback(() => {
     const loadedSettings = settingsStorageService.loadSettings()
 
     setTermPairs(loadedSettings.switchTermPairs)
+    setDefaultOwner(loadedSettings.defaultOwner)
     setSettings(loadedSettings)
   }, [])
 
@@ -54,12 +69,14 @@ const SettingsProvider: React.FC = ({ children }) => {
   return (
     <SettingsContext.Provider
       value={{
-        settingsVersion: settings.settingsVersion,
+        defaultOwner,
         switchTermPairs: termPairs,
+        settingsVersion: settings.settingsVersion,
 
         saveSettings,
+        updateTermPairs,
         refreshSettings,
-        updateTermPairs
+        updateDefaultOwner
       }}
     >
       {children}

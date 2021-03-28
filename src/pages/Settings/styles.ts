@@ -35,7 +35,7 @@ export const SettingsGroup = styled.fieldset`
   position: relative;
 
   padding: 20px 0;
-  margin: 0 10px;
+  margin: 20px 10px;
 
   border: 0;
   border-top: solid 1px #ddd;

@@ -1,4 +1,4 @@
-import IFile from '../../interfaces/IFile'
+import IFile from '../interfaces/IFile'
 
 /**
  * This function populate `editableContent` property of type `IFile`.

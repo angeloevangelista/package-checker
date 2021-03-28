@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { FiSettings } from 'react-icons/fi'
+import { AiOutlineCrown } from 'react-icons/ai'
 import { MdCompareArrows } from 'react-icons/md'
 
 import { useSettings } from '../../hooks/settings'
@@ -15,7 +16,13 @@ import { SwitchTermPair } from './entities/SwitchTermPair'
 import * as SC from './styles'
 
 const Settings: React.FC = () => {
-  const { switchTermPairs, updateTermPairs, saveSettings } = useSettings()
+  const {
+    defaultOwner,
+    switchTermPairs,
+    saveSettings,
+    updateTermPairs,
+    updateDefaultOwner
+  } = useSettings()
 
   const handleTermInputBlur = useCallback(
     (event: React.FocusEvent<HTMLInputElement>, termPair: SwitchTermPair) => {
@@ -33,6 +40,10 @@ const Settings: React.FC = () => {
     [switchTermPairs]
   )
 
+  const handleSaveSettings = useCallback(() => {
+    saveSettings()
+  }, [saveSettings])
+
   return (
     <SC.Container>
       <NavBar />
@@ -42,6 +53,17 @@ const Settings: React.FC = () => {
       </SC.Title>
 
       <SC.Content>
+        <SC.SettingsGroup>
+          <strong className="header">Owner</strong>
+
+          <Input
+            value={defaultOwner}
+            icon={AiOutlineCrown}
+            placeholder="Owner padrão"
+            onChange={(event) => updateDefaultOwner(event.target.value)}
+          />
+        </SC.SettingsGroup>
+
         <SC.SettingsGroup>
           <strong className="header">Substituição de termos</strong>
 
@@ -68,7 +90,7 @@ const Settings: React.FC = () => {
         </SC.SettingsGroup>
 
         <SC.Footer>
-          <Button onClick={saveSettings}>Salvar</Button>
+          <Button onClick={handleSaveSettings}>Salvar</Button>
         </SC.Footer>
       </SC.Content>
     </SC.Container>

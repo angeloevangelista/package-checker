@@ -12,8 +12,9 @@ class SettingsStorageService {
 
   constructor () {
     this._initialSettings = {
-      settingsVersion: storageConfig.settings.version,
-      switchTermPairs: [new SwitchTermPair()]
+      defaultOwner: '',
+      switchTermPairs: [new SwitchTermPair()],
+      settingsVersion: storageConfig.settings.version
     }
 
     this._checkSettingsFileExists(
