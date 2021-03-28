@@ -10,11 +10,9 @@ const checkFiles = async (
   const promisedLoops = filesToCheck.map(async (file) => {
     const fileContent = await file.text()
 
-    const fileContainsTerm = termsToFind.some((term) => {
-      const regexToTest = new RegExp(term, 'i')
-
-      return fileContent.match(regexToTest)
-    })
+    const fileContainsTerm = termsToFind.some((term) =>
+      fileContent.match(new RegExp(term, 'i'))
+    )
 
     file.isOk = !fileContainsTerm
 

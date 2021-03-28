@@ -11,7 +11,6 @@ import {
 } from 'react-icons/all'
 
 import { useSettings } from '../../hooks/settings'
-
 import { routesMap } from '../../config/routes-map'
 
 import Button from '../../components/Button'
@@ -20,7 +19,7 @@ import FileInput from '../../components/FileInput'
 
 import IFile from './interfaces/IFile'
 
-import fixFiles from './functions/fixFiles'
+import { fixFiles } from './functions/FixFiles'
 import checkFiles from './functions/checkFiles'
 
 import * as SC from './styles'
