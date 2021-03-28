@@ -5,6 +5,15 @@ import { fillEditableContent } from '../fillEditableContent'
 import { fillIsOkAndReturnIt } from './fillIsOkAndReturnIt'
 import { checkOwnerIsMissingAtDefinition } from './checkOwnerIsMissingAtDefinition'
 
+/**
+ * This function groups the file validations
+ *
+ * @param filesToCheck The files you want to fix
+ * @param termsToCheck Collection with terms to check if files contain
+ * @param packagePrefix The prefix used for every Package
+ *
+ * @returns The result of check files
+ */
 async function checkFiles (
   filesToCheck: IFile[],
   termsToCheck: string[],
