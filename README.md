@@ -47,7 +47,7 @@ npm run package
 - [ ] Validar se os owner estão corretos
 - [ ] Se ta fechando a package correta (a mesma que abriu em cima)
 - [ ] Se tem o grant correto (owner tb)
-- [ ] Se tem alguma proc no header que nao tem no body e vice versa
+- [x] Se tem alguma proc no header que nao tem no body e vice versa
 - [ ] Se tem as barras corretos antes de depois do show erros
 
 ## Contributing

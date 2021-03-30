@@ -4,6 +4,7 @@ import { checkTermPairs } from './checkTermPairs'
 import { fillEditableContent } from '../fillEditableContent'
 import { fillIsOkAndReturnIt } from './fillIsOkAndReturnIt'
 import { checkOwnerIsMissingAtDefinition } from './checkOwnerIsMissingAtDefinition'
+import { checkPackagesInHeaderBodyAreTheSame } from './checkPackagesInHeaderBodyAreTheSame'
 
 /**
  * This function groups the file validations
@@ -30,6 +31,10 @@ async function checkFiles (
   checkTermPairs(files, termsToCheck)
 
   checkOwnerIsMissingAtDefinition(files, packagePrefix)
+
+  checkPackagesInHeaderBodyAreTheSame(files)
+
+  console.log(...files.map(({ errors }) => errors))
 
   return fillIsOkAndReturnIt(files)
 }
