@@ -36,9 +36,12 @@ const CheckOwner: React.FC = () => {
   const handleFixFiles = useCallback(() => {
     const filesToFix = files.filter((file) => !file.isOk)
 
-    fixFiles(filesToFix, defaultOwner, packagePrefix, switchTermPairs).then(
-      handleRecheck
-    )
+    fixFiles(
+      filesToFix,
+      defaultOwner,
+      packagePrefix,
+      switchTermPairs
+    ).then(() => setFiles([]))
   }, [files, switchTermPairs, defaultOwner, packagePrefix])
 
   const handleRecheck = useCallback(() => {
@@ -58,9 +61,13 @@ const CheckOwner: React.FC = () => {
 
     const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)
 
-    checkFiles(directoryFiles, terms, packagePrefix).then((checkedFiles) =>
+    checkFiles(directoryFiles, terms, packagePrefix).then((checkedFiles) => {
+      if (inputDirectoryRef?.current?.value) {
+        inputDirectoryRef.current.value = ''
+      }
+
       setFiles(checkedFiles)
-    )
+    })
   }, [inputDirectoryRef, switchTermPairs, packagePrefix])
 
   return (
