@@ -14,12 +14,14 @@ export async function saveFixedFiles (files: IFile[]): Promise<void> {
 
   const promisedLoops = files.map(async (file: IFile) => {
     try {
-      await promisedWriteFile(file.path, file.editableContent)
+      await promisedWriteFile(file.path, file.editableContent, {
+        encoding: 'utf-8'
+      })
     } catch (error) {
       alert('An error ocurred updating the file' + error.message)
       console.error(error)
     }
   })
 
-  Promise.all(promisedLoops)
+  await Promise.all(promisedLoops)
 }
