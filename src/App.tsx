@@ -1,8 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { ToastContainer } from 'react-toastify'
 import { BrowserRouter } from 'react-router-dom'
 
 import { SettingsProvider } from './hooks/settings'
+import { toastContainerProps } from './config/react-toastify'
 
 import Routes from './routes'
 import { GlobalStyle } from './styles/GlobalStyle'
@@ -16,8 +18,10 @@ const App = () => {
     <BrowserRouter>
       <SettingsProvider>
         <Routes />
-        <GlobalStyle />
       </SettingsProvider>
+
+      <GlobalStyle />
+      <ToastContainer {...toastContainerProps} />
     </BrowserRouter>
   )
 }

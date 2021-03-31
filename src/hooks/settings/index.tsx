@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import React, {
   createContext,
   useCallback,
@@ -85,8 +86,13 @@ const SettingsProvider: React.FC = ({ children }) => {
   }, [])
 
   const saveSettings = useCallback(() => {
-    alert('Saving')
-    settingsStorageService.saveSettings(settings)
+    try {
+      settingsStorageService.saveSettings(settings)
+      toast.success('Alterações salvas com sucesso.')
+    } catch (error) {
+      toast.error('Falha ao salvar alterações.')
+      console.error('Erro ao salvar: ', error.message)
+    }
   }, [settings])
 
   useEffect(refreshSettings, [])

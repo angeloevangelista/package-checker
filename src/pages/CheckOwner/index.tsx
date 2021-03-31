@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { shell } from 'electron'
 import {
   DiCodeBadge,
@@ -36,12 +37,12 @@ const CheckOwner: React.FC = () => {
   const handleFixFiles = useCallback(() => {
     const filesToFix = files.filter((file) => !file.isOk)
 
-    fixFiles(
-      filesToFix,
-      defaultOwner,
-      packagePrefix,
-      switchTermPairs
-    ).then(() => setFiles([]))
+    fixFiles(filesToFix, defaultOwner, packagePrefix, switchTermPairs).then(
+      () => {
+        setFiles([])
+        toast.success('Arquivos corrigidos.')
+      }
+    )
   }, [files, switchTermPairs, defaultOwner, packagePrefix])
 
   const handleRecheck = useCallback(() => {
