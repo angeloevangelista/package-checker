@@ -5,6 +5,7 @@ import { fillEditableContent } from '../fillEditableContent'
 import { fillIsOkAndReturnIt } from './fillIsOkAndReturnIt'
 import { checkOwnerIsMissingAtDefinition } from './checkOwnerIsMissingAtDefinition'
 import { checkPackagesInHeaderBodyAreTheSame } from './checkPackagesInHeaderBodyAreTheSame'
+import { showValidationResultsInConsole } from './showValidationResultsInConsole'
 
 /**
  * This function groups the file validations
@@ -40,26 +41,3 @@ async function checkFiles (
 }
 
 export default checkFiles
-
-function showValidationResultsInConsole (files: IFile[]) {
-  const totalOfErrors = files.reduce(
-    (accumulator, currentValue) => currentValue.errors.length,
-    0
-  )
-
-  if (!totalOfErrors) {
-    console.log('Sem erros.')
-
-    return
-  }
-
-  console.log('Erros:')
-  console.log()
-
-  files.forEach(({ name, errors }) => {
-    if (!errors.length) return
-
-    console.log(`Filename: ${name}`)
-    errors.forEach((error) => console.log(`- ${error}`))
-  })
-}
