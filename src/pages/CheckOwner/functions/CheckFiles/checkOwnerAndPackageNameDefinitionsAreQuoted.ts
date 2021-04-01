@@ -25,8 +25,8 @@ export function checkOwnerAndPackageNameDefinitionsAreQuoted ({
         const [quotedOwner, quotedPackageName] = packageBlock.split('.')
 
         const ownerAndPackageAreQuoted =
-          quotedOwner.match(/"/g)?.length === 2 &&
-          quotedPackageName.match(/"/g)?.length === 2
+          quotedOwner?.match(/"/g)?.length === 2 &&
+          quotedPackageName?.match(/"/g)?.length === 2
 
         return ownerAndPackageAreQuoted
       }
