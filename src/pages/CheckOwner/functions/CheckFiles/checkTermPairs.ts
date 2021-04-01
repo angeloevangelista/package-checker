@@ -1,13 +1,21 @@
 import IFile from '../../interfaces/IFile'
 
+interface ICheckTermPairsParams {
+  /** The files you want to check */
+  files: IFile[];
+
+  /** Collection with terms substitution mapping */
+  termsToCheck: string[];
+}
+
 /**
  * This function checks if there is any occurrence of the terms
  * at list and populates `errors` array at type `IFile`
- *
- * @param files The files you want to check
- * @param switchTermPairs Collection with terms substitution mapping
  */
-export function checkTermPairs (files: IFile[], termsToCheck: string[]): void {
+export function checkTermPairs ({
+  files,
+  termsToCheck
+}: ICheckTermPairsParams): void {
   termsToCheck = termsToCheck.filter((term) => !!term.trim())
 
   files.forEach((file) => {

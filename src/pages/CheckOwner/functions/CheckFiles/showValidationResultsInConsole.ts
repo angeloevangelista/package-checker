@@ -1,11 +1,16 @@
 import IFile from '../../interfaces/IFile'
 
+interface IShowValidationResultsInConsoleParams {
+  /** The files with `errors` property populated */
+  files: IFile[];
+}
+
 /**
  * This functions prints on console the validation results
- *
- * @param files The files with `errors` property populated
  */
-export function showValidationResultsInConsole (files: IFile[]): void {
+export function showValidationResultsInConsole ({
+  files
+}: IShowValidationResultsInConsoleParams): void {
   const totalOfErrors = files.reduce(
     (accumulator, { errors }) => accumulator + errors.length,
     0

@@ -1,11 +1,12 @@
 import IFile from '../../interfaces/IFile'
 
 import { checkTermPairs } from './checkTermPairs'
-import { fillEditableContent } from '../fillEditableContent'
 import { fillIsOkAndReturnIt } from './fillIsOkAndReturnIt'
+import { fillEditableContent } from '../fillEditableContent'
+import { handleErrors } from '../../../../utils/handleErrors'
+import { showValidationResultsInConsole } from './showValidationResultsInConsole'
 import { checkOwnerIsMissingAtDefinition } from './checkOwnerIsMissingAtDefinition'
 import { checkPackagesInHeaderBodyAreTheSame } from './checkPackagesInHeaderBodyAreTheSame'
-import { showValidationResultsInConsole } from './showValidationResultsInConsole'
 
 /**
  * This function groups the file validations
@@ -27,17 +28,41 @@ async function checkFiles (
     return file
   })
 
-  await fillEditableContent(files)
+  await handleErrors(
+    fillEditableContent,
+    { files },
+    { toastMessage: 'Erro ao ler arquivos.' }
+  )
 
-  checkTermPairs(files, termsToCheck)
+  handleErrors(
+    checkTermPairs,
+    { files, termsToCheck },
+    {
+      toastMessage: 'Erro ao checar termos de troca.'
+    }
+  )
 
-  checkOwnerIsMissingAtDefinition(files, packagePrefix)
+  handleErrors(
+    checkOwnerIsMissingAtDefinition,
+    { files, packagePrefix },
+    {
+      toastMessage: 'Erro ao checar Owner ausente.'
+    }
+  )
 
-  checkPackagesInHeaderBodyAreTheSame(files)
+  handleErrors(
+    checkPackagesInHeaderBodyAreTheSame,
+    { files },
+    { toastMessage: 'Erro ao checar procedures definidas.' }
+  )
 
-  showValidationResultsInConsole(files)
+  handleErrors(
+    showValidationResultsInConsole,
+    { files },
+    { toastMessage: 'Erro ao logar erros no console.' }
+  )
 
-  return fillIsOkAndReturnIt(files)
+  return fillIsOkAndReturnIt({ files })
 }
 
 export default checkFiles

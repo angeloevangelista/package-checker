@@ -3,18 +3,26 @@ import { replaceTerms } from './replaceTerms'
 import IFile from '../../interfaces/IFile'
 import { SwitchTermPair } from '../../../Settings/entities/SwitchTermPair'
 
+interface IFixOwnerInDefinitionParams {
+  /** files The files you want to fix */
+  files: IFile[];
+
+  /** defaultOwner The default owner to use if its not provided in file */
+  defaultOwner: string;
+
+  /** packagePrefix The prefix used for every Package */
+  packagePrefix: string;
+}
+
 /**
- * This function checks if the package definition contains owner and includes it if not
- *
- * @param files The files you want to fix
- * @param defaultOwner The default owner to use if its not provided in file
- * @param packagePrefix The prefix used for every Package
+ * This function checks if the package definition contains owner
+ * and includes it's default value if not provided
  */
-export function fixOwnerInDefinition (
-  files: IFile[],
-  defaultOwner: string,
-  packagePrefix: string
-): void {
+export function fixOwnerInDefinition ({
+  files,
+  defaultOwner,
+  packagePrefix
+}: IFixOwnerInDefinitionParams): void {
   files.forEach((file) => {
     const fixedDefinitionTerms: SwitchTermPair[] = []
 
@@ -70,6 +78,6 @@ export function fixOwnerInDefinition (
       )
     })
 
-    replaceTerms(files, fixedDefinitionTerms)
+    replaceTerms({ files, switchTermPairs: fixedDefinitionTerms })
   })
 }

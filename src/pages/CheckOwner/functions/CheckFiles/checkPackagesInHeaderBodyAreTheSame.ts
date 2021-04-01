@@ -1,13 +1,19 @@
 import IFile from '../../interfaces/IFile'
+
 import { getDefinedProcedures } from './getDefinedProcedures'
+
+interface ICheckPackagesInHeaderBodyAreTheSameParams {
+  /** The files you are checking */
+  files: IFile[];
+}
 
 /**
  * This function check if the packages have the same
  * procedure definitions for header and body
- *
- * @param files The files you are checking
  */
-export function checkPackagesInHeaderBodyAreTheSame (files: IFile[]): void {
+export function checkPackagesInHeaderBodyAreTheSame ({
+  files
+}: ICheckPackagesInHeaderBodyAreTheSameParams): void {
   files.forEach((file) => {
     const [headerMath, bodyMatch, ...somethingElse] = Array.from(
       file.editableContent.matchAll(/CREATE/gi)
@@ -31,8 +37,8 @@ export function checkPackagesInHeaderBodyAreTheSame (files: IFile[]): void {
 
     const bodyContent = file.editableContent.slice(bodyMatch.index)
 
-    const headerPackages = getDefinedProcedures(headerContent)
-    const bodyPackages = getDefinedProcedures(bodyContent)
+    const headerPackages = getDefinedProcedures({ content: headerContent })
+    const bodyPackages = getDefinedProcedures({ content: bodyContent })
 
     const headerAndBodyHaveTheSameProcedures =
       headerPackages.join() === bodyPackages.join()

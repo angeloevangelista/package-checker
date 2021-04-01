@@ -5,6 +5,7 @@ import IFile from '../../interfaces/IFile'
 import { replaceTerms } from './replaceTerms'
 import { saveFixedFiles } from './saveFixedFiles'
 import { fillEditableContent } from '../fillEditableContent'
+import { handleErrors } from '../../../../utils/handleErrors'
 import { fixOwnerInDefinition } from './fixOwnerInDefinition'
 import { checkOwnerIsMissingAtDefinition } from '../CheckFiles/checkOwnerIsMissingAtDefinition'
 
@@ -22,12 +23,32 @@ export async function fixFiles (
   packagePrefix: string,
   switchTermPairs: SwitchTermPair[]
 ): Promise<void> {
-  await fillEditableContent(files)
+  await handleErrors(
+    fillEditableContent,
+    { files },
+    {
+      toastMessage: 'Erro ao ler os arquivos.'
+    }
+  )
 
-  replaceTerms(files, switchTermPairs)
+  handleErrors(
+    replaceTerms,
+    { files, switchTermPairs },
+    {
+      toastMessage: 'Erro ao substituir termos.'
+    }
+  )
 
-  checkOwnerIsMissingAtDefinition(files, packagePrefix) &&
-    fixOwnerInDefinition(files, defaultOwner, packagePrefix)
+  handleErrors(
+    () => {
+      checkOwnerIsMissingAtDefinition({ files, packagePrefix }) &&
+        fixOwnerInDefinition({ files, defaultOwner, packagePrefix })
+    },
+    undefined,
+    {
+      toastMessage: 'Erro ao corrigir owner nas definições.'
+    }
+  )
 
-  await saveFixedFiles(files)
+  await handleErrors(saveFixedFiles, { files })
 }

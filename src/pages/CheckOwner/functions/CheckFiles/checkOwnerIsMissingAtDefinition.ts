@@ -1,17 +1,22 @@
 import IFile from '../../interfaces/IFile'
 
+interface ICheckOwnerIsMissingAtDefinition {
+  /** The files you want to check */
+  files: IFile[];
+
+  /** The prefix used for every Package */
+  packagePrefix: string;
+}
+
 /**
  * This function check if there is any missing owner at package definition
  *
- * @param files The files you want to check
- * @param packagePrefix The prefix used for every Package
- *
  * @returns The result of validation for missing owners at definitions
  */
-export function checkOwnerIsMissingAtDefinition (
-  files: IFile[],
-  packagePrefix: string
-): boolean {
+export function checkOwnerIsMissingAtDefinition ({
+  files,
+  packagePrefix
+}: ICheckOwnerIsMissingAtDefinition): boolean {
   let missingOwner = false
 
   files.forEach((file) => {
