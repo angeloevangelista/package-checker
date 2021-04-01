@@ -7,6 +7,7 @@ import { handleErrors } from '../../../../utils/handleErrors'
 import { showValidationResultsInConsole } from './showValidationResultsInConsole'
 import { checkOwnerIsMissingAtDefinition } from './checkOwnerIsMissingAtDefinition'
 import { checkPackagesInHeaderBodyAreTheSame } from './checkPackagesInHeaderBodyAreTheSame'
+import { checkOwnerAndPackageNameDefinitionsAreQuoted } from './checkOwnerAndPackageNameDefinitionsAreQuoted'
 
 /**
  * This function groups the file validations
@@ -54,6 +55,12 @@ async function checkFiles (
     checkPackagesInHeaderBodyAreTheSame,
     { files },
     { toastMessage: 'Erro ao checar procedures definidas.' }
+  )
+
+  handleErrors(
+    checkOwnerAndPackageNameDefinitionsAreQuoted,
+    { files, packagePrefix },
+    { toastMessage: 'Erro ao checar aspas no owner e package.' }
   )
 
   handleErrors(
