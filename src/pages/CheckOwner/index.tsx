@@ -61,7 +61,7 @@ const CheckOwner: React.FC = () => {
     ) as IFile[]
 
     const SQLFiles = directoryFiles.filter(
-      (file) => file.type === 'application/sql'
+      (file) => file.name.slice(-3).toUpperCase() === 'SQL'
     )
 
     const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)
