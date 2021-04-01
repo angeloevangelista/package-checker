@@ -60,9 +60,13 @@ const CheckOwner: React.FC = () => {
       inputDirectoryRef.current.files || []
     ) as IFile[]
 
+    const SQLFiles = directoryFiles.filter(
+      (file) => file.type === 'application/sql'
+    )
+
     const terms = switchTermPairs.map(({ oldTerm }) => oldTerm)
 
-    checkFiles(directoryFiles, terms, packagePrefix).then((checkedFiles) => {
+    checkFiles(SQLFiles, terms, packagePrefix).then((checkedFiles) => {
       if (inputDirectoryRef?.current?.value) {
         inputDirectoryRef.current.value = ''
       }
